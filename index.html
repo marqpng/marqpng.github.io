@@ -13,15 +13,13 @@
            1. CONFIGURAÇÕES GERAIS (CSS)
            ========================================= */
         
-        /* Definição de Cores */
         :root {
-            --bg-color: #000000;       /* Preto absoluto */
-            --text-color: #ffffff;     /* Branco absoluto */
-            --accent-color: #888888;   /* Cinza para detalhes */
-            --section-bg: #0a0a0a;     /* Cinza muito escuro para separar seções */
+            --bg-color: #000000;
+            --text-color: #ffffff;
+            --accent-color: #888888;
+            --section-bg: #0a0a0a;
         }
 
-        /* Reset para limpar margens padrões dos navegadores */
         * {
             margin: 0;
             padding: 0;
@@ -32,13 +30,12 @@
         body {
             background-color: var(--bg-color);
             color: var(--text-color);
-            overflow-x: hidden; /* Evita rolagem lateral indesejada */
+            overflow-x: hidden;
         }
 
-        /* Classes utilitárias para animação de Fade In */
         .fade-scroll {
             opacity: 0;
-            transition: opacity 1.5s ease-out; /* Suavidade do aparecimento */
+            transition: opacity 1.5s ease-out;
         }
         .visible {
             opacity: 1;
@@ -48,30 +45,30 @@
            2. HERO SECTION (INÍCIO)
            ========================================= */
         .hero {
-            height: 100vh; /* Ocupa 100% da altura da tela */
-            display: flex; /* Cria o layout lado a lado */
+            height: 100vh;
+            display: flex;
             width: 100%;
         }
 
         /* Lado Esquerdo: A Foto */
         .hero-photo {
-            flex: 0.5; /* Ocupa 25% do espaço */
+            flex: 0.5; /* Desktop: 1/3 da largura */
             height: 100%;
             /* PLACEHOLDER: Coloque o caminho da sua foto vertical aqui */
             background-image: url('eu1.png');
             background-size: cover;
             background-position: center;
-            filter: grayscale(100%); /* Deixa a foto preto e branco */
+            filter: grayscale(100%);
         }
 
         /* Lado Direito: O Texto */
         .hero-text {
-            flex: 1; /* Ocupa os outros 50% */
+            flex: 1; /* Desktop: 2/3 da largura */
             background-color: #000;
             display: flex;
             flex-direction: column;
             justify-content: center;
-            padding-left: 4rem; /* Espaçamento interno */
+            padding-left: 4rem;
             padding-right: 2rem;
         }
 
@@ -90,7 +87,6 @@
             font-weight: 400;
         }
 
-        /* Animação da setinha indicando para descer */
         .scroll-indicator {
             position: absolute;
             bottom: 30px;
@@ -112,15 +108,15 @@
         .clients-section {
             padding: 3rem 0;
             background: var(--section-bg);
-            overflow: hidden; /* Esconde os logos que estão fora da tela */
+            overflow: hidden;
             border-top: 1px solid #222;
             border-bottom: 1px solid #222;
         }
 
         .carousel-track {
             display: flex;
-            width: calc(250px * 10); /* Largura total = largura do item * quantidade total */
-            animation: scroll 20s linear infinite; /* Animação contínua */
+            width: calc(250px * 10);
+            animation: scroll 20s linear infinite;
         }
 
         .client-item {
@@ -134,7 +130,7 @@
         .client-item img {
             max-width: 200%;
             max-height: 120px;
-            filter: grayscale(0%) brightness(200%); /* Força logo a ficar branco/cinza */
+            filter: grayscale(0%) brightness(200%);
             opacity: 1;
             transition: opacity 0.3s;
         }
@@ -145,11 +141,11 @@
 
         @keyframes scroll {
             0% { transform: translateX(0); }
-            100% { transform: translateX(calc(-250px * 5)); } /* Move metade da largura total */
+            100% { transform: translateX(calc(-250px * 5)); }
         }
 
         /* =========================================
-           4. PORTFÓLIO (VÍDEOS E FOTOS)
+           4. PORTFÓLIO
            ========================================= */
         .section-padding {
             padding: 5rem 2rem;
@@ -167,20 +163,17 @@
             margin-bottom: 3rem;
         }
 
-        /* --- GRID GERAL --- */
         .video-grid, .photo-grid {
             display: grid;
-            /* Grid automático: cria colunas de no mínimo 300px */
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 2rem;
             max-width: 1200px;
             margin: 0 auto;
         }
 
-        /* --- VÍDEOS --- */
         .video-card {
             position: relative;
-            aspect-ratio: 9/16; /* Formato Vertical (Reels/Shorts) */
+            aspect-ratio: 9/16;
             background: #111;
             border-radius: 4px;
             overflow: hidden;
@@ -216,13 +209,13 @@
         .video-card.playing .play-btn { opacity: 0; }
         .video-card.playing:hover .play-btn { opacity: 1; }
 
-        /* --- FOTOS (NOVO CSS ADICIONADO) --- */
+        /* FOTOS */
         .photo-card {
             position: relative;
-            aspect-ratio: 1/1; /* Quadrado (Estilo Instagram/Feed) */
+            aspect-ratio: 1/1;
             background: #111;
             border-radius: 4px;
-            overflow: hidden; /* Importante para o zoom não sair da borda */
+            overflow: hidden;
             cursor: pointer;
         }
 
@@ -230,15 +223,13 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
-            transition: transform 0.5s ease; /* Animação do Zoom */
+            transition: transform 0.5s ease;
         }
 
-        /* Efeito Zoom ao passar o mouse */
         .photo-card:hover img {
             transform: scale(1.1);
         }
 
-        /* Overlay de Texto (Info) */
         .photo-info {
             position: absolute;
             bottom: 0;
@@ -246,14 +237,13 @@
             width: 100%;
             padding: 20px;
             background: linear-gradient(to top, rgba(0,0,0,0.9), transparent);
-            opacity: 0; /* Escondido por padrão */
+            opacity: 0;
             transition: opacity 0.3s ease;
             display: flex;
             flex-direction: column;
             justify-content: flex-end;
         }
 
-        /* Mostrar texto ao passar o mouse */
         .photo-card:hover .photo-info {
             opacity: 1;
         }
@@ -356,17 +346,28 @@
         }
 
         /* =========================================
-           RESPONSIVIDADE (MOBILE)
+           RESPONSIVIDADE (MOBILE) - CORREÇÃO
            ========================================= */
         @media (max-width: 768px) {
             .hero {
                 flex-direction: column; /* Empilha foto e texto */
             }
+            
+            /* CORREÇÃO DO BUG MOBILE */
+            .hero-photo {
+                flex: 1; /* Força a foto a ocupar 50% da tela verticalmente */
+                width: 100%;
+                /* Ajusta o foco para o topo da imagem para não cortar a cabeça */
+                background-position: top center; 
+            }
+            
             .hero-text {
+                flex: 1; /* Força o texto a ocupar os outros 50% */
                 padding: 2rem;
                 text-align: center;
                 align-items: center;
             }
+
             .hero-text h1 { font-size: 3rem; }
             
             .about-container {
@@ -387,7 +388,9 @@
 <body>
 
     <section class="hero">
-        <div class="hero-photo"></div> <div class="hero-text"> <h1>Marcos Antônio</h1>
+        <div class="hero-photo"></div> 
+        <div class="hero-text"> 
+            <h1>Marcos Antônio</h1>
             <h2>Fotógrafo, Filmaker e Editor</h2>
         </div>
 
@@ -583,9 +586,8 @@
         });
 
         // 2. LÓGICA DE FADE IN AO SCROLLAR (Intersection Observer)
-        // Isso detecta quando o elemento entra na tela e muda a opacidade
         const observerOptions = {
-            threshold: 0.1 // Ativa quando 10% do elemento estiver visível
+            threshold: 0.1 
         };
 
         const observer = new IntersectionObserver((entries) => {
@@ -596,7 +598,6 @@
             });
         }, observerOptions);
 
-        // Aplica o observador em todos os elementos com a classe .fade-scroll
         document.querySelectorAll('.fade-scroll').forEach(el => {
             observer.observe(el);
         });
