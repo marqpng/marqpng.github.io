@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Marcos Antônio | Portfólio</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* =========================================
+           1. CONFIGURAÇÕES GERAIS (CSS)
+           ========================================= */
+        
+        :root {
+            --bg-color: #000000;
+            --text-color: #ffffff;
+            --accent-color: #888888;
+            --section-bg: #0a0a0a;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            overflow-x: hidden;
+        }
+
+        .fade-scroll {
+            opacity: 0;
+            transition: opacity 1.5s ease-out;
+        }
+        .visible {
+            opacity: 1;
+        }
+
+        /* =========================================
+           2. HERO SECTION (INÍCIO)
+           ========================================= */
+        .hero {
+            height: 100vh;
+            display: flex;
+            width: 100%;
+        }
+
+        /* Lado Esquerdo: A Foto */
+        .hero-photo {
+            flex: 0.5; /* Desktop: 1/3 da largura */
+            height: 100%;
+            /* PLACEHOLDER: Coloque o caminho da sua foto vertical aqui */
+            background-image: url('eu1.png');
+            background-size: cover;
+            background-position: center;
+            filter: grayscale(100%);
+        }
+
+        /* Lado Direito: O Texto */
+        .hero-text {
+            flex: 1; /* Desktop: 2/3 da largura */
+            background-color: #000;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding-left: 4rem;
+            padding-right: 2rem;
+        }
+
+        .hero-text h1 {
+            font-size: 4rem;
+            font-weight: 700;
+            line-height: 1.1;
+            margin-bottom: 10px;
+        }
+
+        .hero-text h2 {
+            font-size: 1.2rem;
+            color: var(--accent-color);
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            font-weight: 400;
+        }
+
+        .scroll-indicator {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            animation: bounce 2s infinite;
+            z-index: 10;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {transform: translateY(0) translateX(-50%);}
+            40% {transform: translateY(-10px) translateX(-50%);}
+            60% {transform: translateY(-5px) translateX(-50%);}
+        }
+
+        /* =========================================
+           3. CARROSSEL DE LOGOS
+           ========================================= */
+        .clients-section {
+            padding: 3rem 0;
+            background: var(--section-bg);
+            overflow: hidden;
+            border-top: 1px solid #222;
+            border-bottom: 1px solid #222;
+        }
+
+        .carousel-track {
+            display: flex;
+            width: calc(250px * 10);
+            animation: scroll 20s linear infinite;
+        }
+
+        .client-item {
+            width: 250px;
+            padding: 0 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .client-item img {
+            max-width: 200%;
+            max-height: 120px;
+            filter: grayscale(0%) brightness(200%);
+            opacity: 1;
+            transition: opacity 0.3s;
+        }
+
+        .client-item img:hover {
+            opacity: 1;
+        }
+
+        @keyframes scroll {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(calc(-250px * 5)); }
+        }
+
+        /* =========================================
+           4. PORTFÓLIO
+           ========================================= */
+        .section-padding {
+            padding: 5rem 2rem;
+        }
+
+        .portfolio-section {
+            background-color: #050505;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2rem;
+            text-transform: uppercase;
+            letter-spacing: 5px;
+            margin-bottom: 3rem;
+        }
+
+        .video-grid, .photo-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .video-card {
+            position: relative;
+            aspect-ratio: 9/16;
+            background: #111;
+            border-radius: 4px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+
+        .video-card video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            cursor: pointer;
+        }
+
+        .play-btn {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 60px;
+            height: 60px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(4px);
+            border: 1px solid rgba(255,255,255,0.3);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            pointer-events: none;
+            transition: opacity 0.3s;
+        }
+
+        .video-card.playing .play-btn { opacity: 0; }
+        .video-card.playing:hover .play-btn { opacity: 1; }
+
+        /* FOTOS */
+        .photo-card {
+            position: relative;
+            aspect-ratio: 1/1;
+            background: #111;
+            border-radius: 4px;
+            overflow: hidden;
+            cursor: pointer;
+        }
+
+        .photo-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .photo-card:hover img {
+            transform: scale(1.1);
+        }
+
+        .photo-info {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            padding: 20px;
+            background: linear-gradient(to top, rgba(0,0,0,0.9), transparent);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+        }
+
+        .photo-card:hover .photo-info {
+            opacity: 1;
+        }
+
+        .photo-info h3 {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 5px;
+            color: white;
+        }
+
+        .photo-info p {
+            font-size: 0.9rem;
+            color: #ccc;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* =========================================
+           5. SOBRE E CONTATO
+           ========================================= */
+        .about-section {
+            background-color: var(--section-bg);
+            display: flex;
+            justify-content: center;
+        }
+
+        .about-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 4rem;
+            max-width: 900px;
+            align-items: flex-start;
+        }
+
+        .about-photo {
+            width: 300px;
+            height: 300px;
+            object-fit: cover;
+            filter: grayscale(0%);
+            border-radius: 4px;
+        }
+
+        .about-content {
+            flex: 1;
+            min-width: 300px;
+        }
+
+        .skills-container {
+            margin: 1.5rem 0;
+        }
+
+        .skill-tag {
+            display: inline-block;
+            font-size: 0.8rem;
+            border: 1px solid #444;
+            padding: 4px 12px;
+            margin-right: 5px;
+            margin-bottom: 5px;
+            color: #ccc;
+        }
+
+        .cv-list {
+            list-style: none;
+            margin-top: 1rem;
+        }
+        .cv-list li {
+            margin-bottom: 0.8rem;
+            color: #aaa;
+            border-bottom: 1px solid #222;
+            padding-bottom: 0.5rem;
+        }
+
+        .contact-section {
+            text-align: center;
+            border-top: 1px solid #222;
+        }
+
+        .contact-links {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .btn-link {
+            color: white;
+            text-decoration: none;
+            border: 1px solid white;
+            padding: 1rem 2rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            transition: all 0.3s;
+        }
+
+        .btn-link:hover {
+            background: white;
+            color: black;
+        }
+
+        /* =========================================
+           RESPONSIVIDADE (MOBILE) - CORREÇÃO
+           ========================================= */
+        @media (max-width: 768px) {
+            .hero {
+                flex-direction: column; /* Empilha foto e texto */
+            }
+            
+            /* CORREÇÃO DO BUG MOBILE */
+            .hero-photo {
+                flex: 1; /* Força a foto a ocupar 50% da tela verticalmente */
+                width: 100%;
+                /* Ajusta o foco para o topo da imagem para não cortar a cabeça */
+                background-position: top center; 
+            }
+            
+            .hero-text {
+                flex: 1; /* Força o texto a ocupar os outros 50% */
+                padding: 2rem;
+                text-align: center;
+                align-items: center;
+            }
+
+            .hero-text h1 { font-size: 3rem; }
+            
+            .about-container {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+            
+            .contact-links {
+                flex-direction: column;
+                align-items: center;
+                width: 100%;
+            }
+            .btn-link { width: 100%; max-width: 300px; display: block; }
+        }
+    </style>
+</head>
+<body>
+
+    <section class="hero">
+        <div class="hero-photo"></div> 
+        <div class="hero-text"> 
+            <h1>Marcos Antônio</h1>
+            <h2>Fotógrafo, Filmaker e Editor</h2>
+        </div>
+
+        <div class="scroll-indicator">
+            <svg width="30" height="30" viewBox="0 0 24 24" fill="white"><path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"/></svg>
+        </div>
+    </section>
+
+    <div class="clients-section fade-scroll">
+        <div class="carousel-track">
+            <div class="client-item"><img src="logos/logo1.png" alt="Logo"></div>
+            <div class="client-item"><img src="logos/logo2.png" alt="Logo"></div>
+            <div class="client-item"><img src="logos/logo3.png" alt="Logo"></div>
+            <div class="client-item"><img src="logos/logo4.png" alt="Logo"></div>
+            <div class="client-item"><img src="logos/logo5.png" alt="Logo"></div>
+            
+            <div class="client-item"><img src="logos/logo1.png" alt="Logo"></div>
+            <div class="client-item"><img src="logos/logo2.png" alt="Logo"></div>
+            <div class="client-item"><img src="logos/logo3.png" alt="Logo"></div>
+            <div class="client-item"><img src="logos/logo4.png" alt="Logo"></div>
+            <div class="client-item"><img src="logos/logo5.png" alt="Logo"></div>
+        </div>
+    </div>
+
+    <section class="portfolio-section section-padding fade-scroll" id="work">
+        <h2 class="section-title">Filmografia</h2>
+        
+        <div class="video-grid">
+            <div class="video-card">
+                <video src="videos/exapay.mp4" poster="thumbs/thumb1.png" playsinline preload="metadata"></video>
+                <div class="play-btn">▶</div>
+            </div>
+
+            <div class="video-card">
+                <video src="videos/bebelu1.mp4" poster="thumbs/thumb2.png" playsinline preload="metadata"></video>
+                <div class="play-btn">▶</div>
+            </div>
+
+            <div class="video-card">
+                <video src="videos/bebelu2.mp4" poster="thumbs/thumb3.png" playsinline preload="metadata"></video>
+                <div class="play-btn">▶</div>
+            </div>
+
+            <div class="video-card">
+                <video src="videos/areaiabranca1.mp4" poster="thumbs/thumb4.png" playsinline preload="metadata"></video>
+                <div class="play-btn">▶</div>
+            </div>
+
+            <div class="video-card">
+                <video src="videos/running.mp4" poster="thumbs/thumb5.png" playsinline preload="metadata"></video>
+                <div class="play-btn">▶</div>
+            </div>
+
+            <div class="video-card">
+                <video src="videos/4estacoes.mp4" poster="thumbs/thumb6.png" playsinline preload="metadata"></video>
+                <div class="play-btn">▶</div>
+            </div>
+        </div>
+    </section>
+
+    <section class="portfolio-section section-padding fade-scroll" style="background-color: #080808; padding-top: 0;">
+        <h2 class="section-title">Fotografia</h2>
+        
+        <div class="photo-grid">
+            
+            <div class="photo-card">
+                <img src="fotos/foto1.png" alt="Foto Evento 1">
+                <div class="photo-info">
+                    <h3>Paty Carlos</h3> <p>FIG Garanhuns</p>  </div>
+            </div>
+
+            <div class="photo-card">
+                <img src="fotos/foto2.png" alt="Foto Evento 2">
+                <div class="photo-info">
+                    <h3>Devotos</h3>
+                    <p>FIG Garanhuns</p>
+                </div>
+            </div>
+
+            <div class="photo-card">
+                <img src="fotos/foto3.png" alt="Foto Evento 3">
+                <div class="photo-info">
+                    <h3>Tamarinera Azul</h3>
+                    <p>FIG Garanhuns</p>
+                </div>
+            </div>
+
+            <div class="photo-card">
+                <img src="fotos/foto4.png" alt="Foto Evento 4">
+                <div class="photo-info">
+                    <h3>Paty Carlos</h3>
+                    <p>Clipe "Meu nome é Mulher"</p>
+                </div>
+            </div>
+
+            <div class="photo-card">
+                <img src="fotos/foto5.png" alt="Foto Evento 5">
+                <div class="photo-info">
+                    <h3>Devotos</h3>
+                    <p>FIG Garanhuns</p>
+                </div>
+            </div>
+
+            <div class="photo-card">
+                <img src="fotos/foto6.png" alt="Foto Evento 6">
+                <div class="photo-info">
+                    <h3>Tamarinera Azul</h3>
+                    <p>FIG Garanhuns</p>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <section class="about-section section-padding fade-scroll">
+        <div class="about-container">
+            <img src="perfil.png" alt="Perfil" class="about-photo">
+            
+            <div class="about-content">
+                <h3 style="font-size: 1.5rem; margin-bottom:1rem;">Sobre Mim</h3>
+                <p style="color: #ccc; line-height: 1.6;">
+                    Não é apenas sobre apertar um botão, é sobre contar uma história onde as palavras sobram. Minha regra é clara: mostre, não fale.
+                </p>
+                <p style="color: #ccc; line-height: 1.6;">
+                     
+                </p>
+        <p style="color: #ccc; line-height: 1.6;">
+                    Meu foco é capturar a frequência, o suor e a distorção do momento e transformar essa energia bruta em narrativas visuais dinâmicas. Especializado em Redes Sociais e em unir a estética crua da baixa luminosidade com a fluidez exigida pelas redes sociais, meu trabalho casa a música certa com o take exato. Do clique ao corte preciso, mantenho a autenticidade que seu projeto pede. Do underground ao mainstream.
+        </p>
+
+                <div class="skills-container">
+                    <span class="skill-tag">Premiere Pro</span>
+                    <span class="skill-tag">Lightroom</span>
+                    <span class="skill-tag">Jitter (Motion Design)</span>
+                    <span class="skill-tag">Direção Artistica</span>
+                    <span class="skill-tag">Redes Sociais</span>
+                </div>
+
+                <ul class="cv-list">
+                    <li><strong>Creativa</strong> - Filmaker e Editor (2025 - 2026)</li>
+                    <li><strong>Freelancer</strong> - Filmaker e Editor (2024 - 2025)</li>
+                    <li><strong>Freelancer</strong> - Fotógrafo de Eventos (2023 - Atualmente)</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <footer class="contact-section section-padding fade-scroll">
+        <h2 class="section-title" style="font-size: 1.5rem;">Vamos conversar?</h2>
+        
+        <div class="contact-links">
+            <a href="mailto:contato.limamarcos@gmail.com" class="btn-link">Email</a>
+            <a href="https://instagram.com/marq.png" target="_blank" class="btn-link">Instagram</a>
+            <a href="https://wa.me/5587999267481" target="_blank" class="btn-link">WhatsApp</a>
+        </div>
+
+        <p style="margin-top: 3rem; font-size: 0.8rem; color: #444;">&copy; 2025 Marcos Antônio. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // 1. LÓGICA DO PLAYER DE VÍDEO
+        const cards = document.querySelectorAll('.video-card');
+
+        cards.forEach(card => {
+            const video = card.querySelector('video');
+            const btn = card.querySelector('.play-btn');
+
+            // Função que alterna play/pause
+            const toggleVideo = () => {
+                if(video.paused){
+                    // Pausa todos os outros antes de tocar este
+                    document.querySelectorAll('video').forEach(v => {
+                        if(v !== video) {
+                            v.pause();
+                            v.parentElement.classList.remove('playing');
+                            v.parentElement.querySelector('.play-btn').textContent = '▶';
+                        }
+                    });
+
+                    video.play();
+                    card.classList.add('playing');
+                    btn.textContent = '⏸'; // Muda ícone para Pause
+                } else {
+                    video.pause();
+                    card.classList.remove('playing');
+                    btn.textContent = '▶'; // Muda ícone para Play
+                }
+            };
+
+            // Adiciona clique no botão e no vídeo
+            btn.addEventListener('click', toggleVideo);
+            video.addEventListener('click', toggleVideo);
+        });
+
+        // 2. LÓGICA DE FADE IN AO SCROLLAR (Intersection Observer)
+        const observerOptions = {
+            threshold: 0.1 
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-scroll').forEach(el => {
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>
